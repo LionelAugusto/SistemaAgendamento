@@ -9,9 +9,11 @@ const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.json());
 app.use(express.static(publicPath));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
-});
+// Rotas para arquivos HTML
+app.get('/', (req, res) => res.sendFile(path.join(publicPath, 'index.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(publicPath, 'Admin.html')));
+app.get('/agendar', (req, res) => res.sendFile(path.join(publicPath, 'Agendar.html')));
+app.get('/primeira', (req, res) => res.sendFile(path.join(publicPath, 'primeiralindex.html')));
 
 // Rotas da API
 const usuarioRoutes = require('./routes/usuario.routes');
