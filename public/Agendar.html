@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agendar Horário</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white p-6 max-w-md mx-auto mt-10 shadow-lg rounded-lg">
+
+  <h2 class="text-2xl font-bold mb-4 text-center text-pink-600">Agendar Horário</h2>
+
+  <form id="formAgendamento" class="space-y-4">
+    <input id="nome" type="text" name="nome" placeholder="Seu nome" required class="w-full p-2 border rounded" />
+    <input id="telefone" type="tel" name="telefone" placeholder="WhatsApp" required class="w-full p-2 border rounded" />
+
+    <select id="servico" name="servico" required class="w-full p-2 border rounded">
+      <option value="">Selecione um serviço</option>
+      <option value="Box">Box braid</option>
+      <option value="Boho">Boho Braid</option>
+      <option value="Good Box">Good Box</option>
+      <!-- ... outras opções -->
+    </select>
+
+    <input id="data" type="date" name="data" required class="w-full p-2 border rounded" />
+
+    <select id="hora" name="hora" required class="w-full p-2 border rounded">
+      <option value="">Selecione um horário</option>
+      <option value="09:00">09:00</option>
+      <option value="09:30">09:30</option>
+      <option value="10:00">10:00</option>
+      <!-- ... outras opções -->
+    </select>
+
+    <button type="submit" class="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700">
+      Confirmar Agendamento
+    </button>
+  </form>
+
+  <script>
+    document.getElementById("formAgendamento").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const telefone = document.getElementById("telefone").value;
+      const servico = document.getElementById("servico").value;
+      const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value;
+
+      try {
+        const resposta = await fetch("http://localhost:3000/api/agendamentos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, telefone, servico, data, hora }),
+        });
+
+        const dados = await resposta.json();
+
+        if (resposta.ok) {
+          alert("✅ Agendamento realizado com sucesso!");
+        } else {
+          alert("⚠️ Erro ao agendar: " + dados.error);
+        }
+      } catch (erro) {
+        console.error("❌ Erro na conexão:", erro);
+        alert("⚠️ Erro ao conectar com o servidor.");
+      }
+    });
+  </script>
+
+</body>
+</html>

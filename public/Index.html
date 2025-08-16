@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Painel do Salão</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4 text-center text-pink-600">Login do Administrador</h2>
+
+    <div class="mb-4">
+      <label class="block mb-1">Email</label>
+      <input type="email" id="email" class="w-full border rounded px-3 py-2" placeholder="admin@email.com" />
+    </div>
+
+    <div class="mb-6">
+      <label class="block mb-1">Senha</label>
+      <input type="password" id="senha" class="w-full border rounded px-3 py-2" placeholder="Digite sua senha" />
+    </div>
+
+    <button onclick="fazerLogin()" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 w-full rounded">
+      Entrar
+    </button>
+
+    <p id="erro" class="text-red-500 text-sm mt-3 hidden text-center">Email ou senha inválidos.</p>
+  </div>
+
+  <script>
+    function fazerLogin() {
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      // Simulando login (credenciais fixas)
+      if (email === "admin@salon.com" && senha === "123456") {
+        localStorage.setItem("logado", "true");
+        window.location.href = "Admin.html";
+      } else {
+        document.getElementById("erro").classList.remove("hidden");
+      }
+    }
+  </script>
+
+</body>
+</html>
