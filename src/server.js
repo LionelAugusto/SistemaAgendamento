@@ -15,11 +15,15 @@ async function startServer() {
 
     const app = express();
     app.use(express.json());
-    app.use(express.static(path.join(__dirname, "../public")));
 
-    app.get("/", (req, res) => {
-      res.sendFile(path.join(__dirname, "../public/index.html"));
-    });
+    const publicPath = path.join(__dirname, "..", "public");
+
+app.use(express.static(publicPath));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(publicPath, "index.html"));
+});
+
 
     // Rotas da API
     const usuarioRoutes = require('./routes/usuario.routes');
@@ -30,6 +34,7 @@ async function startServer() {
     app.use('/api/servicos', servicoRoutes);
     app.use('/api/agendamentos', agendamentoRoutes);
 
+    // Porta do Railway ou fallback para 3000
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
 
